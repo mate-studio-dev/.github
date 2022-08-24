@@ -1,0 +1,104 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Default preset for use with Mate Studio's repos",
+  "extends": [
+    "config:base",
+    "schedule:weekly",
+    "group:allNonMajor",
+    "group:linters",
+    ":rebaseStalePrs",
+    ":semanticCommits",
+    ":semanticCommitScope(deps)",
+    ":maintainLockFilesWeekly",
+    "docker:enableMajor"
+  ],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "platformCommit": true,
+  "dependencyDashboard": true,
+  "automergeType": "branch",
+  "rebaseWhen": "behind-base-branch",
+  "platformAutomerge": true,
+  "vulnerabilityAlerts": {
+    "labels": ["security"],
+    "automerge": true,
+    "platformAutomerge": true
+  },
+  "packageRules": [
+    {
+      "matchPackagePrefixes": ["react", "@types/react"],
+      "groupName": "react"
+    },
+    {
+      "matchPackagePatterns": ["^@tailwindcss\\/"],
+      "matchPackageNames": ["tailwindcss"],
+      "groupName": "tailwind"
+    },
+    {
+      "extends": "packages:linters",
+      "matchPackageNames": ["@antfu/eslint-config"],
+      "groupName": "linters"
+    },
+    {
+      "description": "Group prettier packages",
+      "matchPackageNames": ["prettier"],
+      "matchPackagePatterns": ["^@prettier\\/", "^prettier-plugin-"],
+      "groupName": "prettier packages"
+    },
+    {
+      "matchPackagePatterns": ["^@storybook/", "^storybook-"],
+      "groupName": "storybook"
+    },
+    {
+      "matchPackagePatterns": ["^@nestjs/", "^nestjs-", "^nest-"],
+      "groupName": "nestjs"
+    },
+    {
+      "matchPackageNames": ["jest", "ts-jest"],
+      "matchPackagePrefixes": ["@types/jest", "jest"],
+      "groupName": "jest"
+    },
+    {
+      "matchPackagePatterns": ["^@sentry/"],
+      "groupName": "sentry"
+    },
+    {
+      "matchPackagePrefixes": ["graphql", "@types/graphql"],
+      "groupName": "graphql"
+    },
+    {
+      "matchPackagePatterns": ["^@mikro-orm/"],
+      "groupName": "mikro-orm"
+    },
+    {
+      "matchPackagePatterns": ["^@graphql-codegen/", "^graphql-codegen-"],
+      "groupName": "graphql-codegen"
+    },
+    {
+      "matchPackagePatterns": ["^@commitlint/", "^commitlint-"],
+      "groupName": "commitlint"
+    },
+    {
+      "matchPackagePatterns": ["^@vitejs/", "^vite-"],
+      "matchPackageNames": ["vite", "@storybook/builder-vite"],
+      "groupName": "vite"
+    },
+    {
+      "matchPackagePatterns": ["^@urql/", "^urql-"],
+      "matchPackageNames": ["urql"],
+      "groupName": "urql"
+    },
+    {
+      "description": "Require approval for aws-sdk as it updates too often",
+      "matchPackageNames": ["aws-sdk"],
+      "matchPackagePatterns": ["^@aws-sdk\\/"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": ["minor", "patch", "digest", "lockFileMaintenance"],
+      "automerge": true,
+      "platformAutomerge": true
+    }
+  ]
+}
