@@ -30,6 +30,10 @@
       "groupName": "react"
     },
     {
+      "matchPackagePatterns": ["^@pqina\\/"],
+      "groupName": "pintura"
+    },
+    {
       "matchPackagePatterns": ["^@tailwindcss\\/"],
       "matchPackageNames": ["tailwindcss"],
       "groupName": "tailwind"
