@@ -54,13 +54,22 @@
       "groupName": "storybook"
     },
     {
-      "matchPackagePatterns": ["^@nestjs/", "^nestjs-", "^nest-"],
+      "matchPackageNames": ["@nestjs/common", "@nestjs/core", "@nestjs/platform-express", "@nestjs/platform-socket.io", "@nestjs/websockets", "@nestjs/testing"],
       "groupName": "nestjs"
+    },
+    {
+      "matchPackageNames": ["@nestjs/graphql", "@nestjs/apollo"],
+      "groupName": "nestjs graphql"
+    },
+    {
+      "matchPackageNames": ["^@nestjs/", "^nestjs-"],
+      "excludePackageNames": ["@nestjs/common", "@nestjs/core", "@nestjs/platform-express", "@nestjs/platform-socket.io", "@nestjs/websockets", "@nestjs/testing", "@nestjs/graphql", "@nestjs/apollo"],
+      "groupName": "nestjs packages"
     },
     {
       "matchPackageNames": ["jest", "ts-jest"],
       "matchPackagePrefixes": ["@types/jest", "jest"],
-      "groupName": "jest"
+      "groupName": "jest packages"
     },
     {
       "matchPackagePatterns": ["^@sentry/"],
@@ -68,7 +77,7 @@
     },
     {
       "matchPackagePrefixes": ["graphql", "@types/graphql"],
-      "groupName": "graphql"
+      "groupName": "graphql packages"
     },
     {
       "matchPackagePatterns": ["^@mikro-orm/"],
