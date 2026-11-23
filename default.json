@@ -2,115 +2,51 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "description": "Default preset for use with Mate Studio's repos",
   "extends": [
-    "config:base",
+    "config:best-practices",
     "schedule:weekly",
-    "group:allNonMajor",
     "group:linters",
-    ":rebaseStalePrs",
     ":semanticCommits",
     ":semanticCommitScope(deps)",
     "docker:enableMajor"
   ],
   "labels": ["dependencies"],
   "rangeStrategy": "bump",
-  "platformCommit": true,
-  "dependencyDashboard": true,
-  "automergeType": "branch",
-  "rebaseWhen": "behind-base-branch",
+  "platformCommit": "enabled",
+  "minimumReleaseAge": "7 days",
+  "automergeType": "pr",
   "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "automerge": true
+  },
   "vulnerabilityAlerts": {
-    "labels": ["security"],
-    "automerge": true,
-    "platformAutomerge": true
+    "labels": ["security"]
   },
   "packageRules": [
     {
-      "matchPackageNames": ["react", "@types/react", "@types/react-dom", "react-dom"],
-      "groupName": "react"
+      "description": "Automerge non-major updates of stable packages. 0.x minors can break",
+      "matchUpdateTypes": ["minor", "patch", "digest", "pin", "pinDigest"],
+      "matchCurrentVersion": "!/^v?0\\./",
+      "automerge": true
     },
     {
-      "matchPackagePatterns": ["^@pqina\\/"],
-      "groupName": "pintura"
-    },
-    {
-      "matchPackagePatterns": ["^@tailwindcss\\/"],
-      "matchPackageNames": ["tailwindcss"],
-      "groupName": "tailwind"
-    },
-    {
-      "extends": "packages:linters",
       "matchPackageNames": ["@antfu/eslint-config"],
       "groupName": "linters"
     },
     {
-      "description": "Group prettier packages",
-      "matchPackageNames": ["prettier"],
-      "matchPackagePatterns": ["^@prettier\\/", "^prettier-plugin-"],
+      "matchPackageNames": ["prettier", "@prettier/**", "prettier-plugin-**"],
       "groupName": "prettier packages"
     },
     {
-      "matchPackagePatterns": ["^@storybook/", "^storybook-"],
-      "groupName": "storybook"
-    },
-    {
-      "matchPackageNames": ["@nestjs/common", "@nestjs/core", "@nestjs/platform-express", "@nestjs/platform-socket.io", "@nestjs/websockets", "@nestjs/testing"],
-      "groupName": "nestjs"
-    },
-    {
-      "matchPackageNames": ["@nestjs/graphql", "@nestjs/apollo"],
-      "groupName": "nestjs graphql"
-    },
-    {
-      "matchPackageNames": ["^@nestjs/", "^nestjs-"],
-      "excludePackageNames": ["@nestjs/common", "@nestjs/core", "@nestjs/platform-express", "@nestjs/platform-socket.io", "@nestjs/websockets", "@nestjs/testing", "@nestjs/graphql", "@nestjs/apollo"],
-      "groupName": "nestjs packages"
-    },
-    {
-      "matchPackageNames": ["jest", "ts-jest"],
-      "matchPackagePrefixes": ["@types/jest", "jest"],
-      "groupName": "jest packages"
-    },
-    {
-      "matchPackagePatterns": ["^@sentry/"],
-      "groupName": "sentry"
-    },
-    {
-      "matchPackagePrefixes": ["graphql", "@types/graphql"],
-      "groupName": "graphql packages"
-    },
-    {
-      "matchPackagePatterns": ["^@mikro-orm/"],
-      "groupName": "mikro-orm"
-    },
-    {
-      "matchPackagePatterns": ["^@graphql-codegen/", "^graphql-codegen-"],
-      "groupName": "graphql-codegen"
-    },
-    {
-      "matchPackagePatterns": ["^@commitlint/", "^commitlint-"],
-      "groupName": "commitlint"
-    },
-    {
-      "matchPackagePatterns": ["^@vitejs/", "^vite-"],
-      "matchPackageNames": ["vite", "@storybook/builder-vite"],
+      "matchPackageNames": ["vite", "@vitejs/**", "vite-**", "@storybook/builder-vite"],
       "groupName": "vite"
     },
     {
-      "matchPackagePatterns": ["^@urql/", "^urql-"],
-      "matchPackageNames": ["urql"],
+      "matchPackageNames": ["urql", "@urql/**", "urql-**"],
       "groupName": "urql"
     },
     {
-      "description": "Require approval for aws-sdk as it updates too often",
-      "matchPackageNames": ["aws-sdk"],
-      "matchPackagePatterns": ["^@aws-sdk\\/"],
-      "dependencyDashboardApproval": true
-    },
-    {
-      "description": "Automerge non-major updates",
-      "matchUpdateTypes": ["minor", "patch", "digest"],
-      "automerge": true,
-      "platformAutomerge": true
+      "matchPackageNames": ["@pqina/**"],
+      "groupName": "pintura"
     }
   ]
 }
