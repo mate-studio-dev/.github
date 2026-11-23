@@ -3,20 +3,22 @@
   "description": "Default preset for use with Mate Studio's repos",
   "extends": [
     "config:best-practices",
-    "schedule:weekly",
     "group:linters",
     ":semanticCommits",
     ":semanticCommitScope(deps)",
     "docker:enableMajor"
   ],
   "labels": ["dependencies"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["after 10pm on monday", "before 5am on tuesday"],
   "rangeStrategy": "bump",
   "platformCommit": "enabled",
   "minimumReleaseAge": "7 days",
   "automergeType": "pr",
   "platformAutomerge": true,
   "lockFileMaintenance": {
-    "automerge": true
+    "automerge": true,
+    "schedule": ["after 10pm on monday", "before 5am on tuesday"]
   },
   "vulnerabilityAlerts": {
     "labels": ["security"]
